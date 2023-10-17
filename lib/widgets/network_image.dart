@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
-import 'dart:ui' as ui;
-import 'dart:ui_web' as ui_web;
 
 class ReusableNetworkImage extends StatelessWidget {
   final String imageUrl;

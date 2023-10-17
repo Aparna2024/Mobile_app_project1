@@ -630,32 +630,109 @@ class ListOfRecipes with ChangeNotifier {
         isPopular: false),
   ];
 
+//   List<Recipe> get getRecipes {
+//     return _recipes;
+//   }
+
+//   List<Recipe> getRecipesByCategory(String category) {
+//     return _recipes.where((recipe) => recipe.recipeCategory == category).toList();
+//   }
+
+//   Recipe findById(double id) {
+//     return _recipes.firstWhere((i) => i.recipeId == id);
+//   }
+
+//   List<dynamic> findByCategory(String categoryName) {
+//     List _categoryList = _recipes
+//         .where((element) => element.recipeCategory
+//             .toLowerCase()
+//             .contains(categoryName.toLowerCase()))
+//         .toList();
+//     return _categoryList;
+//   }
+
+//   List<Recipe> get popularRecipes {
+//     return _recipes.where((element) => element.isPopular).toList();
+//   }
+
+//   List<dynamic> searchRecipe(String searchText) {
+//     List _searchList = _recipes
+//         .where((element) =>
+//             element.recipeName.toLowerCase().contains(searchText.toLowerCase()))
+//         .toList();
+//     return _searchList;
+//   }
+// }
   List<Recipe> get getRecipes {
     return _recipes;
   }
 
-  Recipe findById(double id) {
-    return _recipes.firstWhere((i) => i.recipeId == id);
+  List<Recipe> getRecipesByCategory(String category) {
+    return _recipes
+        .where((recipe) => recipe.recipeCategory == category)
+        .toList();
   }
 
-  List<dynamic> findByCategory(String categoryName) {
-    List _categoryList = _recipes
-        .where((element) => element.recipeCategory
+  Recipe? findById(double id) {
+    return _recipes.firstWhere((recipe) => recipe.recipeId == id);
+  }
+
+  List<Recipe> findByCategory(String categoryName) {
+    return _recipes
+        .where((recipe) => recipe.recipeCategory
             .toLowerCase()
             .contains(categoryName.toLowerCase()))
         .toList();
-    return _categoryList;
   }
 
   List<Recipe> get popularRecipes {
-    return _recipes.where((element) => element.isPopular).toList();
+    return _recipes.where((recipe) => recipe.isPopular).toList();
   }
 
-  List<dynamic> searchRecipe(String searchText) {
-    List _searchList = _recipes
-        .where((element) =>
-            element.recipeName.toLowerCase().contains(searchText.toLowerCase()))
+  List<Recipe> searchRecipe(String searchText) {
+    return _recipes
+        .where((recipe) =>
+            recipe.recipeName.toLowerCase().contains(searchText.toLowerCase()))
         .toList();
-    return _searchList;
+  }
+
+  // Add new recipe
+  void addRecipe(Recipe recipe) {
+    final newRecipe = Recipe(
+      recipeId: _recipes.length + 1,
+      recipeName: recipe.recipeName,
+      recipeCategory: recipe.recipeCategory,
+      recipeImage: recipe.recipeImage,
+      prepTime:
+          0, // Provide a value for prepTime (you can replace 0 with an appropriate value)
+      cookTime:
+          0, // Provide a value for cookTime (you can replace 0 with an appropriate value)
+      recipeServing:
+          0, // Provide a value for recipeServing (you can replace 0 with an appropriate value)
+      recipeIngredients: recipe.recipeIngredients,
+      recipeMethod: recipe.recipeMethod,
+      recipeReview: recipe.recipeReview,
+      isPopular:
+          false, // Provide a value for isPopular (you can replace false with an appropriate value)
+    );
+
+    _recipes.add(newRecipe);
+    notifyListeners();
+  }
+
+  // Update recipe
+  void updateRecipe(Recipe updatedRecipe) {
+    final existingRecipeIndex = _recipes
+        .indexWhere((recipe) => recipe.recipeId == updatedRecipe.recipeId);
+    if (existingRecipeIndex >= 0) {
+      _recipes[existingRecipeIndex] = updatedRecipe;
+      notifyListeners();
+    }
+  }
+
+  // Delete recipe
+  void deleteRecipe(double id) {
+    _recipes.removeWhere((recipe) => recipe.recipeId == id);
+    notifyListeners();
   }
 }

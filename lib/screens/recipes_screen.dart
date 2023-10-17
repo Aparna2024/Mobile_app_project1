@@ -30,7 +30,7 @@ class RecipesScreen extends StatelessWidget {
               SizedBox(
                 height: 4.0.h,
               ),
-              const TabRow(),
+              TabRow(),
               const RecipesListView(),
             ],
           ),

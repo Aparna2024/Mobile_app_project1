@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:meal_planning_recipie_planning_app/screens/account_screen.dart';
 import 'package:sizer/sizer.dart';
 import 'package:unicons/unicons.dart';
 import '/widgets/widgets.dart';
+import 'account_screen.dart';
+import 'app_info_screen.dart';
+import 'logout_screen.dart';
+import 'setting_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -47,36 +52,40 @@ class ProfileListView extends StatelessWidget {
       child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 20.0),
           children: [
-            const ProfileListTile(
+            ProfileListTile(
               text: 'Account',
               icon: UniconsLine.user_circle,
+              screenToNavigate: AccountScreen(),
             ),
             Divider(
               color: Colors.grey.shade400,
               indent: 10.0,
               endIndent: 10.0,
             ),
-            const ProfileListTile(
+            ProfileListTile(
               text: 'Settings',
               icon: UniconsLine.setting,
+              screenToNavigate: SettingsScreen(),
             ),
             Divider(
               color: Colors.grey.shade400,
               indent: 10.0,
               endIndent: 10.0,
             ),
-            const ProfileListTile(
+            ProfileListTile(
               text: 'App Info',
               icon: UniconsLine.info_circle,
+              screenToNavigate: AppInfoScreen(),
             ),
             Divider(
               color: Colors.grey.shade400,
               indent: 10.0,
               endIndent: 10.0,
             ),
-            const ProfileListTile(
+            ProfileListTile(
               text: 'Logout',
               icon: UniconsLine.sign_out_alt,
+              screenToNavigate: LogoutScreen(),
             ),
           ]),
     );
@@ -86,25 +95,35 @@ class ProfileListView extends StatelessWidget {
 class ProfileListTile extends StatelessWidget {
   final String text;
   final IconData icon;
-  const ProfileListTile({Key? key, required this.text, required this.icon})
+  final Widget screenToNavigate; // The screen to navigate to when tapped
+  const ProfileListTile(
+      {Key? key,
+      required this.text,
+      required this.icon,
+      required this.screenToNavigate})
       : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(text, style: Theme.of(context).textTheme.headline5),
-      horizontalTitleGap: 5.0,
-      leading: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Icon(icon, color: Theme.of(context).iconTheme.color),
-      ),
-      trailing: Icon(
-        UniconsLine.angle_right,
-        size: 24.0.sp,
-        color: Theme.of(context).iconTheme.color,
-      ),
-      onTap: () {},
-    );
+        title: Text(text, style: Theme.of(context).textTheme.headline5),
+        horizontalTitleGap: 5.0,
+        leading: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Icon(icon, color: Theme.of(context).iconTheme.color),
+        ),
+        trailing: Icon(
+          UniconsLine.angle_right,
+          size: 24.0.sp,
+          color: Theme.of(context).iconTheme.color,
+        ),
+        onTap: () {
+          // Navigate to the specified screen when the item is tapped.
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => screenToNavigate,
+              ));
+        });
   }
 }
 

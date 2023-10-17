@@ -52,7 +52,7 @@ class _SavedRecipesState extends State<SavedRecipes> {
         SizedBox(
           height: 4.0.h,
         ),
-        const TabRow(),
+        TabRow(),
         SizedBox(
           height: 2.0.h,
         ),

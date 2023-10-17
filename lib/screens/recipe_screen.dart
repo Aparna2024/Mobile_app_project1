@@ -23,11 +23,11 @@ class RecipeScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 2.5,
             ),
-            Positioned(
+            const Positioned(
               top: 180.0,
               left: 18.0,
               child: Column(
-                children: const [
+                children: [
                   RecipeAbout(),
                   SizedBox(
                     height: 20.0,

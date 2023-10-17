@@ -31,7 +31,6 @@ class _SearchFieldState extends State<SearchField> {
 
   @override
   Widget build(BuildContext context) {
-    //Implement a dropdown logic to the SearchField
     final recipeData = Provider.of<ListOfRecipes>(context);
     final recipeList = recipeData.getRecipes;
     return Material(
