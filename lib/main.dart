@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_planning_recipie_planning_app/screens/login_page.dart';
 import 'package:provider/provider.dart';
 import '/provider/provider.dart';
 import '/custom_theme.dart';
@@ -23,12 +24,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLoggedIn = false;
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
         title: 'Recipe App',
         debugShowCheckedModeBanner: false,
         //  theme: CustomTheme.lightTheme,
-        home: const CustomNavBar(),
+        home: isLoggedIn ? const CustomNavBar() : LoginPage(),
       );
     });
   }
