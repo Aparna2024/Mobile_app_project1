@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:meal_planning_recipie_planning_app/custom_navbar.dart';
 import 'package:meal_planning_recipie_planning_app/screens/account_screen.dart';
 import 'package:meal_planning_recipie_planning_app/screens/login_page.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:unicons/unicons.dart';
+import '../provider/provider.dart';
 import '/widgets/widgets.dart';
 import 'account_screen.dart';
 import 'app_info_screen.dart';
-import 'logout_screen.dart';
 import 'setting_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -149,6 +151,11 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<AuthProvider>(context).user;
+    final isLoggedIn = Provider.of<AuthProvider>(context).isLoggedIn;
+    var userName = "User";
+    bool loggedIn = isLoggedIn ?? true;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -161,13 +168,13 @@ class ProfileHeader extends StatelessWidget {
           height: 10.0,
         ),
         Text(
-          'Username',
+          userName,
           style: Theme.of(context).textTheme.headline4,
         ),
         const SizedBox(
           height: 5.0,
         ),
-    
+        Text(emailId, style: Theme.of(context).textTheme.headline5),
       ],
     );
   }

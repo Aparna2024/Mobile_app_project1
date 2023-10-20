@@ -5,15 +5,20 @@ import '../services/database_helper.dart';
 class RegistrationPage extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailIdController = TextEditingController();
 
   void _register(BuildContext context) async {
     String username = usernameController.text;
     String password = passwordController.text;
+    String emailId = emailIdController.text;
 
     // Validate username and password (add more validation logic if needed)
-    if (username.isNotEmpty && password.isNotEmpty) {
-      User newUser = User(username: username, password: password);
+    if (username.isNotEmpty && password.isNotEmpty && emailId.isNotEmpty) {
+      User newUser = User(username: username, password: password, emailId: emailId);
       int userId = await DatabaseHelper.instance.insertUser(newUser);
+      List<User> users= await DatabaseHelper.instance.getAllUsers();
+
+      print(users);
 
       if (userId != -1) {
         // Registration successful, show a success message
@@ -22,7 +27,7 @@ class RegistrationPage extends StatelessWidget {
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text('Success'),
-              content: Text('Registration successful! User ID: $userId'),
+              content: Text('User $userId registered successfully!'),
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
@@ -74,6 +79,11 @@ class RegistrationPage extends StatelessWidget {
         },
       );
     }
+
+    // Clear text fields after successful registration
+    usernameController.clear();
+    passwordController.clear();
+    emailIdController.clear();
   }
 
   @override
@@ -95,6 +105,10 @@ class RegistrationPage extends StatelessWidget {
               controller: passwordController,
               obscureText: true,
               decoration: InputDecoration(labelText: 'Password'),
+            ),
+            TextField(
+              controller: emailIdController,
+              decoration: InputDecoration(labelText: 'EmailId'),
             ),
             SizedBox(height: 20),
             ElevatedButton(

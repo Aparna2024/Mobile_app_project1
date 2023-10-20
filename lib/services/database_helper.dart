@@ -27,11 +27,14 @@ class DatabaseHelper {
   }
 
   Future<void> _createDatabase(Database db, int version) async {
+    await db.execute("DROP TABLE IF EXISTS users");
+
     await db.execute('''
       CREATE TABLE users(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT,
-        password TEXT
+        password TEXT,
+        emailId TEXT
       )
     ''');
   }
@@ -56,7 +59,8 @@ class DatabaseHelper {
     return User(
       id: results[0]['id'],
       username: results[0]['username'],
-      password: results[0]['password']
+      password: results[0]['password'],
+      emailId: results[0]['emailId']
     );
   }
 
@@ -79,21 +83,6 @@ class DatabaseHelper {
     return result;
   }
 
-  Future<void> updateUserPermissions(String userName, bool canRead, bool canWrite) async {
-    Database db = await instance.database;
-
-    // Assuming your users table has columns named 'id', 'canRead', and 'canWrite'
-    await db.update(
-      'users',
-      {
-        'canRead': canRead ? 1 : 0, // Store boolean as 1 for true, 0 for false
-        'canWrite': canWrite ? 1 : 0,
-      },
-      where: 'userName = ?',
-      whereArgs: [userName],
-    );
-  }
-
   Future<List<User>> getAllUsers() async {
     Database db = await instance.database;
 
@@ -106,7 +95,8 @@ class DatabaseHelper {
       users.add(User(
         id: row['id'],
         username: row['username'],
-        password: row['password']
+        password: row['password'],
+        emailId: row['emailId']
       ));
     }
 

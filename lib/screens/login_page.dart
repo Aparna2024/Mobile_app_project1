@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meal_planning_recipie_planning_app/custom_navbar.dart';
+import 'package:provider/provider.dart';
 import '../models/user.dart';
+import '../provider/auth_provider.dart';
 import '../services/database_helper.dart';
 import 'registration_page.dart';
 
@@ -16,6 +18,9 @@ class LoginPage extends StatelessWidget {
     if (user != null) {
       // Regular user login successful, navigate to display details page
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CustomNavBar()));
+      // Regular user login successful
+      Provider.of<AuthProvider>(context, listen: false).setUser(user);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => CustomNavBar()));
     } else {
       // Login failed, show an error message
       showDialog(

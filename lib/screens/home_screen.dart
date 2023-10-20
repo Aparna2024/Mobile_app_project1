@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_planning_recipie_planning_app/screens/login_page.dart';
 import 'package:provider/provider.dart';
 import '/provider/provider.dart';
 import 'package:unicons/unicons.dart';
@@ -61,21 +62,46 @@ class HomeHeaderRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<AuthProvider>(context).user;
+    final isLoggedIn = Provider.of<AuthProvider>(context).isLoggedIn;
+    var userName = "User";
+    bool loggedIn = isLoggedIn ?? true;
+
+    if(user != null) {
+      userName = user.username;
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Hello, User',
+          'Hello, $userName',
           style: Theme.of(context).textTheme.headline4,
         ),
         const Spacer(
           flex: 3,
         ),
-        const Expanded(
-          child: ProfileImage(
-              height: 50.0,
-              image:
-                  'https://images.unsplash.com/photo-1619895862022-09114b41f16f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80'),
+        Visibility(
+          visible: loggedIn,
+          child: ElevatedButton(
+            onPressed: () {
+              // Navigate to the login page when the ElevatedButton is pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+              },
+            child: Icon(
+              Icons.login_sharp,
+              size: 36.0,
+              color: Colors.white,
+            ),
+            style: ElevatedButton.styleFrom(
+              shape: CircleBorder(),
+              padding: EdgeInsets.all(24.0),
+              primary: Colors.blue,
+            ),
+          ),
         ),
       ],
     );
