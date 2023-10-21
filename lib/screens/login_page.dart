@@ -15,7 +15,7 @@ class LoginPage extends StatelessWidget {
     User? user = await DatabaseHelper.instance.getUserByUsernameAndPassword(username, password);
     if (user != null) {
       // Regular user login successful, navigate to display details page
-      Navigator.push(context, MaterialPageRoute(builder: (context) => CustomNavBar()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CustomNavBar()));
     } else {
       // Login failed, show an error message
       showDialog(
@@ -70,7 +70,6 @@ class LoginPage extends StatelessWidget {
               onPressed: () {
                 // Navigate to registration page
                 Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
-
               },
               child: Text('Register'),
             ),

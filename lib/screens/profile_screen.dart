@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_planning_recipie_planning_app/screens/account_screen.dart';
+import 'package:meal_planning_recipie_planning_app/screens/login_page.dart';
 import 'package:sizer/sizer.dart';
 import 'package:unicons/unicons.dart';
 import '/widgets/widgets.dart';
@@ -82,11 +83,25 @@ class ProfileListView extends StatelessWidget {
               indent: 10.0,
               endIndent: 10.0,
             ),
-            ProfileListTile(
-              text: 'Logout',
-              icon: UniconsLine.sign_out_alt,
-              screenToNavigate: LogoutScreen(),
-            ),
+              ListTile(
+                title: Text('Logout', style: Theme.of(context).textTheme.headline5),
+                horizontalTitleGap: 5.0,
+                leading: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Icon(UniconsLine.sign_out_alt, color: Theme.of(context).iconTheme.color),
+                ),
+                trailing: Icon(
+                  UniconsLine.angle_right,
+                  size: 24.0.sp,
+                  color: Theme.of(context).iconTheme.color,
+                ),
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ));
+              })
           ]),
     );
   }
@@ -152,7 +167,7 @@ class ProfileHeader extends StatelessWidget {
         const SizedBox(
           height: 5.0,
         ),
-        Text('Email Address', style: Theme.of(context).textTheme.headline5),
+    
       ],
     );
   }

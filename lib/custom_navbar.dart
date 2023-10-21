@@ -61,7 +61,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
             label: 'Category',
           ),
            BottomNavigationBarItem(
-            icon: Icon(UniconsLine.apps),
+            icon: Icon(UniconsLine.book),
             label: 'Meal Planning',
             ),
           BottomNavigationBarItem(

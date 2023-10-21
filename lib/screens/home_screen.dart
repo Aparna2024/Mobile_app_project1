@@ -190,38 +190,38 @@ class HomeStack extends StatelessWidget {
                     const SizedBox(
                       height: 5.0,
                     ),
-                    const Spacer(),
-                    Row(
-                      children: [
-                        const Icon(UniconsLine.clock),
-                        const SizedBox(
-                          width: 5.0,
-                        ),
-                        Text(
-                          '${prepTime + cookTime} M Total',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(color: Colors.black38),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    Row(
-                      children: [
-                        const Icon(UniconsLine.star),
-                        const SizedBox(
-                          width: 5.0,
-                        ),
-                        Text(
-                          recipeReview.toStringAsFixed(0),
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(color: Colors.black38),
-                        ),
-                      ],
-                    ),
+                    // const Spacer(),
+                    // Row(
+                    //   children: [
+                    //     const Icon(UniconsLine.clock),
+                    //     const SizedBox(
+                    //       width: 5.0,
+                    //     ),
+                    //     Text(
+                    //       '${prepTime + cookTime}',
+                    //       style: Theme.of(context)
+                    //           .textTheme
+                    //           .headline3!
+                    //           .copyWith(color: Colors.black38),
+                    //     ),
+                    //   ],
+                    // ),
+                    // const Spacer(),
+                    // Row(
+                    //   children: [
+                    //     const Icon(UniconsLine.star),
+                    //     const SizedBox(
+                    //       width: 5.0,
+                    //     ),
+                    //     Text(
+                    //       recipeReview.toStringAsFixed(0),
+                    //       style: Theme.of(context)
+                    //           .textTheme
+                    //           .headline3!
+                    //           .copyWith(color: Colors.black38),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
