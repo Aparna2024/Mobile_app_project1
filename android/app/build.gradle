@@ -64,4 +64,17 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    // Original dependencies
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    
+    // Filter and search dependencies based on a specific keyword
+    def searchKeyword = "material" // We will replace material with search keyword we like to add.
+
+    dependencies.findAll { dependency ->
+        dependency.toString().contains(searchKeyword)
+    }.each { filteredDependency ->
+        implementation filteredDependency
+    }
+}
