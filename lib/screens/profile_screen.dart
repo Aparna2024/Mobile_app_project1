@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:meal_planning_recipie_planning_app/custom_navbar.dart';
 import 'package:meal_planning_recipie_planning_app/screens/account_screen.dart';
 import 'package:meal_planning_recipie_planning_app/screens/login_page.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:unicons/unicons.dart';
+import '../models/user.dart';
 import '../provider/provider.dart';
 import '/widgets/widgets.dart';
-import 'account_screen.dart';
 import 'app_info_screen.dart';
 import 'setting_screen.dart';
 
@@ -151,10 +150,9 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<AuthProvider>(context).user;
-    final isLoggedIn = Provider.of<AuthProvider>(context).isLoggedIn;
-    var userName = "User";
-    bool loggedIn = isLoggedIn ?? true;
+    final authProvider = Provider.of<AuthProvider>(context);
+    User? user = authProvider.user ?? null;
+    String userName = user != null ? user.username : "User";
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

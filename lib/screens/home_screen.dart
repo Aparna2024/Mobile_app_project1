@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:meal_planning_recipie_planning_app/screens/login_page.dart';
 import 'package:provider/provider.dart';
 import '/provider/provider.dart';
-import 'package:unicons/unicons.dart';
 import 'screens.dart';
 import '/utils/utils.dart';
 import '/widgets/widgets.dart';
@@ -62,14 +61,10 @@ class HomeHeaderRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<AuthProvider>(context).user;
-    final isLoggedIn = Provider.of<AuthProvider>(context).isLoggedIn;
-    var userName = "User";
-    bool loggedIn = isLoggedIn ?? true;
-
-    if(user != null) {
-      userName = user.username;
-    }
+    final authProvider = Provider.of<AuthProvider>(context);
+    final user = authProvider.user;
+    final isLoggedIn = authProvider.isLoggedIn ?? false;
+    var userName = user != null ? user.username : "User";
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,17 +77,31 @@ class HomeHeaderRow extends StatelessWidget {
           flex: 3,
         ),
         Visibility(
-          visible: loggedIn,
+          visible: isLoggedIn,
           child: ElevatedButton(
             onPressed: () {
-              // Navigate to the login page when the ElevatedButton is pressed
+              authProvider.logout(); // Implement your logout function in AuthProvider
+            },
+            child: Icon(
+              Icons.logout,
+              size: 36.0,
+              color: Colors.white,
+            ),
+            style: ElevatedButton.styleFrom(
+              shape: CircleBorder(),
+              padding: EdgeInsets.all(24.0),
+              primary: Colors.blue,
+            ),
+          ),
+          replacement: ElevatedButton(
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => LoginPage()),
               );
-              },
+            },
             child: Icon(
-              Icons.login_sharp,
+              Icons.login,
               size: 36.0,
               color: Colors.white,
             ),
@@ -216,38 +225,6 @@ class HomeStack extends StatelessWidget {
                     const SizedBox(
                       height: 5.0,
                     ),
-                    // const Spacer(),
-                    // Row(
-                    //   children: [
-                    //     const Icon(UniconsLine.clock),
-                    //     const SizedBox(
-                    //       width: 5.0,
-                    //     ),
-                    //     Text(
-                    //       '${prepTime + cookTime}',
-                    //       style: Theme.of(context)
-                    //           .textTheme
-                    //           .headline3!
-                    //           .copyWith(color: Colors.black38),
-                    //     ),
-                    //   ],
-                    // ),
-                    // const Spacer(),
-                    // Row(
-                    //   children: [
-                    //     const Icon(UniconsLine.star),
-                    //     const SizedBox(
-                    //       width: 5.0,
-                    //     ),
-                    //     Text(
-                    //       recipeReview.toStringAsFixed(0),
-                    //       style: Theme.of(context)
-                    //           .textTheme
-                    //           .headline3!
-                    //           .copyWith(color: Colors.black38),
-                    //     ),
-                    //   ],
-                    // ),
                   ],
                 ),
               ),

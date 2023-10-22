@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meal_planning_recipie_planning_app/screens/login_page.dart';
 import 'package:provider/provider.dart';
 import '/provider/provider.dart';
 import 'package:sizer/sizer.dart';

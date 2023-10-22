@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meal_planning_recipie_planning_app/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 import '/screens/screens.dart';
 import 'package:sizer/sizer.dart';
 import 'package:unicons/unicons.dart';
@@ -21,7 +23,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
   GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> profileNavigatorKey =
       GlobalKey<NavigatorState>();
-  
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -29,16 +31,62 @@ class _CustomNavBarState extends State<CustomNavBar> {
     });
   }
 
-  static List<Widget> pages = [
+  static List<Widget> pages(bool isLoggedIn) {
+    return [
+      const HomeScreen(),
+      const CategoryScreen(),
+      if (isLoggedIn) const MealPlanningScreen(),
+      const SavedScreen(),
+      if (isLoggedIn) const ProfileScreen(),
+    ];
+  }
+
+  /*static List<Widget> pages = [
     const HomeScreen(),
     const CategoryScreen(),
     const MealPlanningScreen(),
     const SavedScreen(),
     const ProfileScreen(),
-  ];
+  ];*/
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    bool isLoggedIn = authProvider.isLoggedIn ?? false;
+
+    List<BottomNavigationBarItem> items = [
+      BottomNavigationBarItem(
+        icon: Icon(UniconsLine.home),
+        label: 'Home',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(UniconsLine.apps),
+        label: 'Category',
+      ),
+      
+    ];
+
+    if (isLoggedIn) {
+      items.add(
+          BottomNavigationBarItem(
+            icon: Icon(UniconsLine.book),
+            label: 'Meal Planning',
+          )
+      );
+      items.add(
+        BottomNavigationBarItem(
+          icon: Icon(UniconsLine.bookmark),
+          label: 'Saved',
+        ),
+      );
+      items.add(
+        BottomNavigationBarItem(
+          icon: Icon(UniconsLine.user),
+          label: 'Profile',
+        )
+      );
+    }
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
@@ -51,28 +99,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
         showUnselectedLabels: true,
         selectedItemColor: Theme.of(context).iconTheme.color,
         type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(UniconsLine.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(UniconsLine.apps),
-            label: 'Category',
-          ),
-           BottomNavigationBarItem(
-            icon: Icon(UniconsLine.book),
-            label: 'Meal Planning',
-            ),
-          BottomNavigationBarItem(
-            icon: Icon(UniconsLine.bookmark),
-            label: 'Saved',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(UniconsLine.user),
-            label: 'Profile',
-          ),
-        ],
+        items: items
       ),
       body: IndexedStack(
         index: selectedIndex,
@@ -93,30 +120,32 @@ class _CustomNavBarState extends State<CustomNavBar> {
               );
             },
           ),
-           Navigator(
-            key: planningNavigatorKey,
-            onGenerateRoute: (settings) {
-              return MaterialPageRoute(
-                builder: (context) => const MealPlanningScreen(),
-              );
-            },
-          ),
-          Navigator(
-            key: savedNavigatorKey,
-            onGenerateRoute: (settings) {
-              return MaterialPageRoute(
-                builder: (context) => const SavedScreen(),
-              );
-            },
-          ),
-          Navigator(
-            key: profileNavigatorKey,
-            onGenerateRoute: (settings) {
-              return MaterialPageRoute(
-                builder: (context) => const ProfileScreen(),
-              );
-            },
-          ),
+          if (isLoggedIn) ...[
+            Navigator(
+              key: planningNavigatorKey,
+              onGenerateRoute: (settings) {
+                return MaterialPageRoute(
+                  builder: (context) => const MealPlanningScreen(),
+                );
+              },
+            ),
+            Navigator(
+              key: savedNavigatorKey,
+              onGenerateRoute: (settings) {
+                return MaterialPageRoute(
+                  builder: (context) => const SavedScreen(),
+                );
+              },
+            ),
+            Navigator(
+              key: profileNavigatorKey,
+              onGenerateRoute: (settings) {
+                return MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
+                );
+              },
+            ),
+          ],
         ],
       ),
     );

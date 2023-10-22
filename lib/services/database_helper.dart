@@ -64,6 +64,18 @@ class DatabaseHelper {
     );
   }
 
+  Future<User?> getUserByEmailId(String emailId) async {
+    Database db = await instance.database;
+    List<Map<String, dynamic>> results = await db.query('users', where: 'emailId = ?', whereArgs: [emailId]);
+    if (results.isEmpty) return null;
+    return User(
+        id: results[0]['id'],
+        username: results[0]['username'],
+        password: results[0]['password'],
+        emailId: results[0]['emailId']
+    );
+  }
+
   Future<List<Map<String, dynamic>>> getPagedData(String dateOfBirth, int page, int pageSize) async {
     Database db = await instance.database;
     int offset = (page - 1) * pageSize;

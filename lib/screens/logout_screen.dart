@@ -10,7 +10,7 @@ class LogoutScreen extends StatelessWidget {
         title: Text('Logout'),
       ),
       body: Center(
-        child: Text('This is the Logout screen'),
+        child: Text('You have successfully logged out!'),
       ),
     );
   }

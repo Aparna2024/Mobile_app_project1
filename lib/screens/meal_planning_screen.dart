@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import '/provider/provider.dart';
-import 'package:unicons/unicons.dart';
-import 'screens.dart';
-import '/utils/utils.dart';
-import '/widgets/widgets.dart';
 
 class Meal {
   final String name;
