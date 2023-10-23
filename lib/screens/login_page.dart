@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_planning_recipie_planning_app/custom_navbar.dart';
+import 'package:meal_planning_recipie_planning_app/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import '../models/user.dart';
 import '../provider/auth_provider.dart';
@@ -18,7 +19,7 @@ class LoginPage extends StatelessWidget {
     if (user != null) {
       // Regular user login successful
       Provider.of<AuthProvider>(context, listen: false).setUser(user);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CustomNavBar()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
     } else {
       // Login failed, show an error message
       showDialog(
