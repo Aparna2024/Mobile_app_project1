@@ -153,6 +153,7 @@ class ProfileHeader extends StatelessWidget {
     final authProvider = Provider.of<AuthProvider>(context);
     User? user = authProvider.user ?? null;
     String userName = user != null ? user.username : "User";
+    String emailId = user != null? user.emailId : "xxxx@xxx.com";
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

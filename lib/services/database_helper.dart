@@ -34,7 +34,10 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT,
         password TEXT,
-        emailId TEXT
+        emailId TEXT,
+        streetAddress TEXT,
+        city TEXT,
+        zipCode TEXT
       )
     ''');
   }
@@ -60,7 +63,10 @@ class DatabaseHelper {
       id: results[0]['id'],
       username: results[0]['username'],
       password: results[0]['password'],
-      emailId: results[0]['emailId']
+      emailId: results[0]['emailId'],
+      streetAddress: results[0]['streetAddress'],
+      city: results[0]['city'],
+      zipCode: results[0]['zipCode']
     );
   }
 
@@ -72,7 +78,10 @@ class DatabaseHelper {
         id: results[0]['id'],
         username: results[0]['username'],
         password: results[0]['password'],
-        emailId: results[0]['emailId']
+        emailId: results[0]['emailId'],
+        streetAddress: results[0]['streetAddress'],
+        city: results[0]['city'],
+        zipCode: results[0]['zipCode']
     );
   }
 
@@ -105,10 +114,13 @@ class DatabaseHelper {
     List<User> users = [];
     for (Map<String, dynamic> row in result) {
       users.add(User(
-        id: row['id'],
-        username: row['username'],
-        password: row['password'],
-        emailId: row['emailId']
+          id: row['id'],
+          username: row['username'],
+          password: row['password'],
+          emailId: row['emailId'],
+          streetAddress: row['streetAddress'],
+          city: row['city'],
+          zipCode: row['zipCode']
       ));
     }
 

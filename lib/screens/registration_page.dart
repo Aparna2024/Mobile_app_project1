@@ -7,6 +7,9 @@ class RegistrationPage extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailIdController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController zipCodeController = TextEditingController();
 
   bool isEmailValid(String email) {
     // Regular expression for validating an Email
@@ -21,11 +24,19 @@ class RegistrationPage extends StatelessWidget {
     String username = usernameController.text;
     String password = passwordController.text;
     String emailId = emailIdController.text;
+    String streetAddress = addressController.text;
+    String city = cityController.text;
+    String zipCode = zipCodeController.text;
 
     // Validate username and password (add more validation logic if needed)
     if (username.isNotEmpty && password.isNotEmpty && emailId.isNotEmpty) {
       User newUser = User(
-          username: username, password: password, emailId: emailId);
+          username: username,
+          password: password,
+          emailId: emailId,
+          streetAddress: streetAddress,
+          city: city,
+          zipCode: zipCode);
       User? user = await DatabaseHelper.instance.getUserByEmailId(emailId);
 
       if (user != null) {
@@ -69,7 +80,7 @@ class RegistrationPage extends StatelessWidget {
             },
           );
         }
-        else if (username.length <= 4 || password.length <= 8) {
+        else if (username.length < 4 || password.length < 8) {
           // Invalid input, show an error message
           showDialog(
             context: context,
@@ -136,6 +147,9 @@ class RegistrationPage extends StatelessWidget {
     usernameController.clear();
     passwordController.clear();
     emailIdController.clear();
+    addressController.clear();
+    cityController.clear();
+    zipCodeController.clear();
   }
 
   @override
@@ -167,6 +181,18 @@ class RegistrationPage extends StatelessWidget {
               controller: emailIdController,
               decoration: InputDecoration(labelText: 'EmailId', border: OutlineInputBorder(), prefixIcon: Icon(Icons.email)),
             ),
+            TextField(
+              controller: addressController,
+              decoration: InputDecoration(labelText: 'StreetAddress', border: OutlineInputBorder(), prefixIcon: Icon(Icons.account_box)),
+            ),
+            TextField(
+              controller: cityController,
+              decoration: InputDecoration(labelText: 'City', border: OutlineInputBorder(), prefixIcon: Icon(Icons.account_box)),
+            ),
+            TextField(
+              controller: zipCodeController,
+              decoration: InputDecoration(labelText: 'ZipCode', border: OutlineInputBorder(), prefixIcon: Icon(Icons.account_box)),
+            ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
@@ -189,7 +215,7 @@ class RegistrationPage extends StatelessWidget {
               ),
             ),
           ],
-        ),
+        )
       ),
     );
   }
